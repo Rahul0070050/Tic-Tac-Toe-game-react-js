@@ -4,7 +4,7 @@ import { useGlobalContest } from './Context';
 import './style.css';
 
 function App() {
-  const { start, won, startGame } = useGlobalContest();
+  const { start, won, finish, startGame, handleRestart } = useGlobalContest();
   return (
     <section className="container" >
       <header>
@@ -13,6 +13,7 @@ function App() {
       <main>
         {/* {won} */}
         {start ? < Playground /> : <div className="start"><h1>Start the game</h1><br /> <button onClick={startGame}>Start</button></div>}
+        {finish && <button onClick={handleRestart}>restart</button>}
       </main>
     </section >
   );
