@@ -11,8 +11,10 @@ const AppProvider = ({ children }) => {
     const [won, setWon] = useState('');
     const [start, setStart] = useState(false);
     const [finish, setFinish] = useState(false);
+    const [started, setStarted] = useState(false)
     const handleClick = (e) => {
         if (finish) return
+        setStarted(true)
         let TID = Number(e.target.id);
         const oldSpace = spase.filter(spase => spase.id !== TID);
         if (firstPlay) {
@@ -38,18 +40,19 @@ const AppProvider = ({ children }) => {
     }
 
     const playerWon = (TED, fullSpace) => {
-        let { id, player } = fullSpace.find(spase => spase.id === TED)
-        console.log(fullSpace[0].player);
+        let { player } = fullSpace.find(spase => spase.id === TED)
         if (player === fullSpace[0].player) {
             if (player === fullSpace[1].player && player === fullSpace[2].player) {
                 setWon(player)
                 setFinish(true)
                 setStyle('top-row')
-            } else if (player === fullSpace[3].player && player === fullSpace[6].player) {
+            }
+            if (player === fullSpace[3].player && player === fullSpace[6].player) {
                 setWon(player)
                 setFinish(true)
                 setStyle('top-to-bottom-left-col')
-            } else if (player === fullSpace[4].player && player === fullSpace[8].player) {
+            }
+            if (player === fullSpace[4].player && player === fullSpace[8].player) {
                 setStyle('top-left-to-bottom-tight')
                 setWon(player)
                 setFinish(true)
@@ -65,7 +68,8 @@ const AppProvider = ({ children }) => {
                 setWon(player)
                 setFinish(true)
                 setStyle('top-to-bottom-right')
-            } else if (player === fullSpace[4].player && player === fullSpace[6].player) {
+            }
+            if (player === fullSpace[4].player && player === fullSpace[6].player) {
                 setWon(player)
                 setFinish(true)
                 setStyle('top-right-to-bottom-left')
@@ -89,6 +93,7 @@ const AppProvider = ({ children }) => {
         setStyle('')
         setWon('')
         setFinish(false)
+        setStarted(false)
         let random = Math.floor(Math.random() * 11)
         if (random / 2 === 0) {
             setFirstPlay(true) // true first
@@ -113,6 +118,7 @@ const AppProvider = ({ children }) => {
         handleClick,
         startGame,
         start,
+        started,
         won,
         spase,
         style,
